@@ -1,3 +1,4 @@
+# LambdaCI-CDDemo
 
 # CI/CD Lambda Deployment
  Utilizes CodePipeline, CodeBuild, CodeDeploy, and Cloudformation to configure a Safe Lambda Deployment. 
@@ -7,4 +8,4 @@ https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_la
 
 https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html
 
-https://aws.amazon.com/blogs/compute/implementing-safe-aws-lambda-deployments-with-aws-codedeploy/#SafeLambda# LambdaCI-CDDemo
+https://aws.amazon.com/blogs/compute/implementing-safe-aws-lambda-deployments-with-aws-codedeploy/#SafeLambda
