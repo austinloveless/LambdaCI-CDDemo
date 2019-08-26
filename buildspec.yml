@@ -8,5 +8,5 @@ phases:
 artifacts:
   type: zip
   files:
-    - samTemplate.yaml
-    - outputSamTemplate.yaml
+    - template.yaml
+    - outputTemplate.yaml
