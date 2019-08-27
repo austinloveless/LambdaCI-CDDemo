@@ -10,14 +10,12 @@ exports.handler = (event, context, callback) => {
     const functionToTest = process.env.NewVersion;
 
     console.log(`Testing new function version: ${functionToTest}`);
-    console.log("We are running some integration tests before we start shifting traffic...");
 
-    // Perform validation of the newly deployed Lambda version
     const lambdaParams = {
         FunctionName: functionToTest,
         InvocationType: "RequestResponse"
     };
-    let status = "Failed"
+    let status = "Failed";
     
     lambda.invoke(lambdaParams, (error, data) => {
         console.log(`Lambda Data ${JSON.stringify(data)}`);
@@ -25,7 +23,7 @@ exports.handler = (event, context, callback) => {
 
         if (response.body === "Hello World!") {
             status = "Succeeded";
-        }
+        };
 
         const params = {
             deploymentId,
