@@ -41,7 +41,9 @@
                 "iam:GetRole",
                 "iam:CreateRole",
                 "iam:DeleteRole",
-                "iam:PutRolePolicy"
+                "iam:PutRolePolicy",
+                "cloudwatch:*",
+                "logs:*"
             ],
             "Resource": [
                 "arn:aws:iam::807230335956:role/*"
