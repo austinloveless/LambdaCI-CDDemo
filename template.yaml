@@ -10,7 +10,6 @@ Resources:
       Handler: helloWorld.handler
       CodeUri: ./Lambda
       Runtime: nodejs10.x
-      AutoPublishAlias: live
       ProvisionedConcurrencyConfig:
         ProvisionedConcurrentExecutions: 1
       DeploymentPreference:
