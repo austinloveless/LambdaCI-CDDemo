@@ -13,17 +13,14 @@ Resources:
       AutoPublishAlias: live
       ProvisionedConcurrencyConfig:
         ProvisionedConcurrentExecutions: 1
-      Description: 'Lambda function for CD Demo'
-      MemorySize: 128
-      Timeout: 30
       DeploymentPreference:
           Type: AllAtOnce
-          Alarms:
-            - !Ref AliasErrorMetricGreaterThanZeroAlarm
-            - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
           Hooks:
             PreTraffic: !Ref PreTrafficHook
             PostTraffic: !Ref PostTrafficHook
+      Description: 'Lambda function for CD Demo'
+      MemorySize: 128
+      Timeout: 30
       Events:
         HelloWorldAPI:
           Type: Api
