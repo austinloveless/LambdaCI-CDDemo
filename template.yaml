@@ -11,11 +11,13 @@ Resources:
       CodeUri: ./Lambda
       Runtime: nodejs10.x
       AutoPublishAlias: live
+      ProvisionedConcurrencyConfig:
+        ProvisionedConcurrentExecutions: 1
       Description: 'Lambda function for CD Demo'
       MemorySize: 128
       Timeout: 30
       DeploymentPreference:
-          Type: Linear10PercentEvery1Minute
+          Type: AllAtOnce
           Alarms:
             - !Ref AliasErrorMetricGreaterThanZeroAlarm
             - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
