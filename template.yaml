@@ -10,14 +10,18 @@ Resources:
       Handler: helloWorld.handler
       CodeUri: ./Lambda
       Runtime: nodejs10.x
-      AutoPublishAlias: dev
-      ProvisionedConcurrencyConfig:
-        ProvisionedConcurrentExecutions: 1
-      DeploymentPreference:
-          Type: AllAtOnce
+      AutoPublishAlias: live
       Description: 'Lambda function for CD Demo'
       MemorySize: 128
       Timeout: 30
+      DeploymentPreference:
+          Type: Linear10PercentEvery1Minute
+          Alarms:
+            - !Ref AliasErrorMetricGreaterThanZeroAlarm
+            - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+          Hooks:
+            PreTraffic: !Ref PreTrafficHook
+            PostTraffic: !Ref PostTrafficHook
       Events:
         HelloWorldAPI:
           Type: Api
@@ -27,3 +31,96 @@ Resources:
       Environment:
         Variables:
           REGION: eu-west-1
+          
+  AliasErrorMetricGreaterThanZeroAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Resource
+          Value: !Sub "${HelloWorld}:live"
+        - Name: FunctionName
+          Value: !Ref HelloWorld
+      EvaluationPeriods: 2
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+
+  LatestVersionErrorMetricGreaterThanZeroAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Resource
+          Value: !Sub "${HelloWorld}:live"
+        - Name: FunctionName
+          Value: !Ref HelloWorld
+        - Name: ExecutedVersion
+          Value: !GetAtt HelloWorld.Version.Version
+      EvaluationPeriods: 2
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+
+
+  PreTrafficHook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: preTrafficHook.handler
+      Runtime: nodejs10.x
+      CodeUri: ./Lambda
+      FunctionName: 'CodeDeployHook_PreTrafficHook'
+      Policies:
+        - Version: "2012-10-17"
+          Statement: 
+          - Effect: "Allow"
+            Action: 
+              - "codedeploy:PutLifecycleEventHookExecutionStatus"
+            Resource:
+              !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
+        - Version: "2012-10-17"
+          Statement: 
+          - Effect: "Allow"
+            Action: 
+              - "lambda:InvokeFunction"
+            Resource: !Ref HelloWorld.Version
+      DeploymentPreference:
+        Enabled: false
+      Timeout: 5
+      Environment:
+        Variables:
+          NewVersion: !Ref HelloWorld.Version
+
+  PostTrafficHook:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: postTrafficHook.handler
+      Runtime: nodejs10.x
+      CodeUri: ./Lambda
+      FunctionName: 'CodeDeployHook_PostTrafficHook'
+      Policies:
+        - Version: "2012-10-17"
+          Statement: 
+          - Effect: "Allow"
+            Action: 
+              - "codedeploy:PutLifecycleEventHookExecutionStatus"
+            Resource:
+              !Sub 'arn:aws:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ServerlessDeploymentApplication}/*'
+        - Version: "2012-10-17"
+          Statement: 
+          - Effect: "Allow"
+            Action: 
+              - "lambda:InvokeFunction"
+            Resource: !Ref HelloWorld.Version
+      DeploymentPreference:
+        Enabled: false
+      Timeout: 5
+      Environment:
+        Variables:
+          NewVersion: !Ref HelloWorld.Version
