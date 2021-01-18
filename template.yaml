@@ -39,7 +39,7 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       Dimensions:
         - Name: Resource
-          Value: !Sub "${HelloWorld}:live"
+          Value: !Sub "${HelloWorldAlias}:live"
         - Name: FunctionName
           Value: !Ref HelloWorld
       EvaluationPeriods: 2
@@ -56,7 +56,7 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       Dimensions:
         - Name: Resource
-          Value: !Sub "${HelloWorld}:live"
+          Value: !Sub "${HelloWorldAlias}:live"
         - Name: FunctionName
           Value: !Ref HelloWorld
         - Name: ExecutedVersion
