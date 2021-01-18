@@ -26,4 +26,4 @@ Resources:
             Method: get
       Environment:
         Variables:
-          REGION: us-west-1
+          REGION: eu-west-1
