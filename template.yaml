@@ -15,7 +15,7 @@ Resources:
       MemorySize: 128
       Timeout: 30
       DeploymentPreference:
-          Type: Linear10PercentEvery1Minute
+          Type: Canary10Percent5Minutes
       Events:
         HelloWorldAPI:
           Type: Api
