@@ -23,7 +23,7 @@
                 "lambda:*"
             ],
             "Resource": [
-                "arn:aws:lambda:us-west-1:807230335956:function:*"
+                "arn:aws:lambda:eu-west-1:861695156919:function:*"
             ],
             "Effect": "Allow"
         },
@@ -32,7 +32,7 @@
                 "apigateway:*"
             ],
             "Resource": [
-                "arn:aws:apigateway:us-west-1::*"
+                "arn:aws:apigateway:eu-west-1::*"
             ],
             "Effect": "Allow"
         },
@@ -46,7 +46,7 @@
                 "logs:*"
             ],
             "Resource": [
-                "arn:aws:iam::807230335956:role/*"
+                "arn:aws:iam::861695156919:role/*"
             ],
             "Effect": "Allow"
         },
@@ -57,7 +57,7 @@
                 "iam:DetachRolePolicy"
             ],
             "Resource": [
-                "arn:aws:iam::807230335956:role/*"
+                "arn:aws:iam::861695156919:role/*"
             ],
             "Effect": "Allow"
         },
@@ -75,7 +75,7 @@
                 "cloudformation:CreateChangeSet"
             ],
             "Resource": [
-                "arn:aws:cloudformation:us-west-1:aws:transform/Serverless-2016-10-31"
+                "arn:aws:cloudformation:eu-west-1:aws:transform/Serverless-2016-10-31"
             ],
             "Effect": "Allow"
         },
@@ -86,7 +86,7 @@
                 "codedeploy:RegisterApplicationRevision"
             ],
             "Resource": [
-                "arn:aws:codedeploy:us-west-1:807230335956:application:*"
+                "arn:aws:codedeploy:eu-west-1:861695156919:application:*"
             ],
             "Effect": "Allow"
         },
@@ -97,7 +97,7 @@
                 "codedeploy:GetDeployment"
             ],
             "Resource": [
-                "arn:aws:codedeploy:us-west-1:807230335956:deploymentgroup:*"
+                "arn:aws:codedeploy:eu-west-1:861695156919:deploymentgroup:*"
             ],
             "Effect": "Allow"
         },
@@ -106,7 +106,7 @@
                 "codedeploy:GetDeploymentConfig"
             ],
             "Resource": [
-                "arn:aws:codedeploy:us-west-1:807230335956:deploymentconfig:*"
+                "arn:aws:codedeploy:eu-west-1:861695156919:deploymentconfig:*"
             ],
             "Effect": "Allow"
         }
